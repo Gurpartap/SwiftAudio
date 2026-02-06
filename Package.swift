@@ -6,7 +6,7 @@ let package = Package(
     name: "AudioUtils",
     platforms: [
         .iOS(.v17),
-        .macOS("13.3")
+        .macOS("14.0")
     ],
     products: [
         .library(
