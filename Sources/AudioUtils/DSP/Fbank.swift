@@ -126,13 +126,11 @@ public struct Fbank {
     private static let windowCache = WindowCache()
     private static let melFilterbankCache = MelFilterbankCache()
 
-#if DEBUG
     public enum TestOverrides {
         /// Overrides the Kaldi default dither value for deterministic tests.
         /// `nil` keeps the default behavior.
         @TaskLocal public static var ditherOverride: Float? = nil
     }
-#endif
     
     // MARK: - Optimized Filterbank Computation
     
@@ -161,12 +159,7 @@ public struct Fbank {
         let windowType = args.winType
 
         // Kaldi default parameters
-        let dither: Float
-#if DEBUG
-        dither = TestOverrides.ditherOverride ?? defaultDitherValue
-#else
-        dither = defaultDitherValue
-#endif
+        let dither: Float = TestOverrides.ditherOverride ?? defaultDitherValue
         let preemphasisCoefficient: Float = kaldiPreemphasisCoefficient
         let removeDCOffset = true
         let roundToPowerOfTwo = true
